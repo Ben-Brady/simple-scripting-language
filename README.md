@@ -28,29 +28,30 @@ print bar
 ```
 
 ## Abstract Syntax Tree
-
-- statement
-  - Assignment
-    - variable: `num`
-    - value: `1`
-- if statement
-  - condition
-    - binary operator
-      - op: `comparsion`
-      - a
-        - binary operator
-          - op: `exponent`
-          - a
-            - Variable: `num`
-          - b
-            - Literal: `2`
-      - b
-        - Literal: `4`
-  - branch
-    - statement
-      - print
-        - variable: `num`
-  - else
-    - statement
-      - print
-        - Literal: `false`
+```javascript
+body [
+  assignment: {
+    variable: "foo",
+    value: literal { "foo" },
+  },
+  assignment {
+    variable: "bar",
+    value: if_statement {
+      condition: bin_op {
+        op: "equals",
+        a: variable { "foo" },
+        b: literal { "foo" },
+      },
+      branch: [
+        literal { true },
+      ],
+      else: [
+        literal { false },
+      ],
+    },
+  },
+  print {
+    args: variable { "var" },
+  },
+]
+```
